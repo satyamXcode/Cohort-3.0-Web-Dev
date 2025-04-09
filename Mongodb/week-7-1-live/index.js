@@ -1,21 +1,44 @@
+const bcrypt = require("bcrypt");
 const express = require("express");
 const { UserModel, TodoModel } = require("./db");
 const { auth, JWT_SECRET } = require("./auth");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const { z } = require("zod");
 
 mongoose.connect("mongodb+srv://jaiswalsatyam876:Tm9PwpbXosM0NpZe@cluster0.iyyxmta.mongodb.net/todo-app-database");
 const app = express();
 app.use(express.json());
 
 app.post("/signup", async function(req, res){
+
+
+    const requireBody = z.object({
+        email: z.string().min(3).max(100).email(),
+        name: z.string().min(3).max(100),
+        password: z.string().min(3).max(30)
+    })
+
+    // const parseData = requireBody.parse(req.body);
+    const parsedDataWithSuccess = requiredBody.safeParse(req.body);
+
+    if(!parsedDataWithSuccess.success){
+        res.json({
+            message: "Incorrect format"
+        })
+        return
+    }
+
     const email = req.body.email;
     const password = req.body.password;
     const name = req.body.name;
 
+    const hashedPassword = await bcrypt.hash(password, 5);
+    console.log(hashedPassword);
+
     await UserModel.create({
         email: email,
-        password: password,
+        password: hashedPassword,
         name: name
     })
 
@@ -29,19 +52,26 @@ app.post("/signin", async function(req, res){
     const password = req.body.password;
 
     const user = await UserModel.findOne({
-        email: email,
-        password: password
+        email: email 
     })
 
-    //console.log(user);
+    if(!user){
+        res.status(403).json({
+            message: "User does not exist in our db"
+        })
+        return
+    }
 
-    if(user){
+    //console.log(user);
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if(passwordMatch){
         const token = jwt.sign({
             id: user._id.toString()
         }, JWT_SECRET);
         res.json({
-            token: token
-        });
+            token
+        })
     }else{
         res.status(403).json({
             message: "Incorrect credentials"
