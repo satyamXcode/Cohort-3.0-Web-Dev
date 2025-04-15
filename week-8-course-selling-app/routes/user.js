@@ -1,18 +1,56 @@
 const { Router } = require("express");
+const { userModel } = require("../db");
+const jwt = require("jsonwebtoken");
+const { JWT_USER_PASSWORD } = require("../config");
+
 
 const userRouter = Router(); //Instance of router class
 
 
-userRouter.post("/signup", function(req, res){
+userRouter.post("/signup", async function(req, res){
+
+    const { email, password, firstName, lastName } = req.body;
+    // TODO: Adding zod validation
+    //> Hash the password so plaintext password is not stored in the Db.
+    //> Put inside a try catch block
+
+    await userModel.create({
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName
+    })
+
     res.json({
         message: "signup endpoint"
     })
 })
 
-userRouter.post("/signin", function(req, res){
-    res.json({
-        message: "signin endpoint"
-    })
+userRouter.post("/signin", async function(req, res){
+
+    const { email, password } = req.body;
+
+    // TODO: Ideally password should be hashed, And you can't compare the user provided password and the database password.
+
+    const user = await userModel.findOne({
+        email: email,
+        password: password
+    });
+
+    if(user){
+        const token = jwt.sign({
+            id: user._id
+        }, JWT_USER_PASSWORD);
+
+        res.json({
+            token: token
+        })
+
+    } else {
+        res.status(403).json({
+            message: "Incorrect Credentials"
+        })
+    }
 })
 
 userRouter.get("/purchases", function(req, res){
