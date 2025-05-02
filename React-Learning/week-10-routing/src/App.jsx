@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
 
 function App() {
@@ -42,8 +42,16 @@ function Class11Program() {
 }
 
 function Class12Program() {
+
+  const navigate = useNavigate();
+
+  function redirectUser() {
+     navigate("/")
+  }
+
   return <Fragment>
    <h1>Neet programs for class 12th</h1>
+   <button onClick={redirectUser}>Go back to landing page</button>
   </Fragment>
 }
 
