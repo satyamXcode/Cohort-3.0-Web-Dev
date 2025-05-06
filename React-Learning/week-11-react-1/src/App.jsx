@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from 'react'
 
 function App() {
 
-  const [post, getPosts] = useCounter({});
+  const [post, setPost] = useState({});
 
   async function getPosts(){
     const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
