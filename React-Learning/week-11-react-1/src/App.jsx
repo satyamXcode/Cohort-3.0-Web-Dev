@@ -1,13 +1,13 @@
 import { Fragment, useState, useEffect } from 'react'
-import { usePostTitle } from './hooks/useFetch'
+import { usePostTitle, useFetch } from './hooks/useFetch'
 
 function App() {
 
-  const postTitle = usePostTitle();
+  const { finalData } = useFetch("https://jsonplaceholder.typicode.com/todos/1");
 
   return (
     <Fragment>
-       {postTitle}
+       {JSON.stringify(finalData)}
     </Fragment>
   )
 }
