@@ -1,22 +1,22 @@
 import { Fragment, useState, useEffect } from 'react'
 import { usePostTitle, useFetch } from './hooks/useFetch'
+import { usePrev } from './hooks/usePrev';
 
 function App() {
-  const [currentPost, setCurrentPost] = useState(1);
-  const { finalData, loading } = useFetch("https://jsonplaceholder.typicode.com/todos/"+ currentPost);
-
-  if(loading){
-     return <div>
-         Loading...
-     </div>
-  }
+  const [state, setState] = useState(0);
+  const prev = usePrev(state);
+  
 
   return (
     <Fragment>
-      <button onClick={() => setCurrentPost(1)}>1</button>
-      <button onClick={() => setCurrentPost(2)}>2</button>
-      <button onClick={() => setCurrentPost(3)}>3</button>
-       {JSON.stringify(finalData)}
+      <p>{state}</p>
+      <button
+        onClick={() => {
+          setState((curr) => curr + 1);
+  }}>
+    Click Me
+  </button>
+  <p>The previous value was {prev}</p>
     </Fragment>
   )
 }
