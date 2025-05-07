@@ -20,6 +20,7 @@ export function usePostTitle(){
 
 export function useFetch(url){
     const[finalData, setFinalData] = useState({});
+    //console.log(url);
 
     async function getDetails() {
        const response = await fetch(url);
@@ -29,7 +30,7 @@ export function useFetch(url){
 
     useEffect(() => {
         getDetails();
-    }, [])
+    }, [url])
 
     return {
         finalData
