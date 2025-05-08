@@ -1,22 +1,27 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect, useRef } from 'react'
 import { usePostTitle, useFetch } from './hooks/useFetch'
 import { usePrev } from './hooks/usePrev';
 
+function useDebounce(originalFn) {
+   const currentClock = useRef();
+
+   const fn = () => {
+      clearTimeout(currentClock.current);
+      currentClock.current = setTimeout(originalFn, 200);
+   }
+   return fn;
+}
+
 function App() {
-  const [state, setState] = useState(0);
-  const prev = usePrev(state);
-  
+   function sendDataToBackend(){
+     fetch("api.amazon.com/search/");
+   }
+
+   const debouncedFn = useDebounce(sendDataToBackend);
 
   return (
     <Fragment>
-      <p>{state}</p>
-      <button
-        onClick={() => {
-          setState((curr) => curr + 1);
-  }}>
-    Click Me
-  </button>
-  <p>The previous value was {prev}</p>
+     <input type="text" onChange={debouncedFn} />
     </Fragment>
   )
 }
