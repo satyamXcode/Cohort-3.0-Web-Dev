@@ -1,64 +1,57 @@
-import { Fragment, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import './App.css'
-
+import { RecoilRoot, atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { counterAtom } from './store/atoms/counter';
 
 function App() {
 
-   return (
-     <Fragment>
-       <Counter />
-     </Fragment>
-   )
+  return (
+    <RecoilRoot>
+     <Counter />
+    </RecoilRoot>
+  )
 }
 
 function Counter() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <Fragment>
-       <CurrentCount count={count} />
-       <br />
-       <Increase setCount={setCount} />
-       <Decrease setCount={setCount} />
-    </Fragment>
-  )
+  return <div>
+    <CurrentCount />
+    <Increase />
+    <Decrease />
+  </div>
 }
 
-function CurrentCount({count}){
-  return (
-    <Fragment>
-       {count}
-    </Fragment>
-  )
+function CurrentCount() {
+  const count = useRecoilValue(counterAtom);
+  return <div>
+    {count}
+  </div>
 }
 
-function Decrease({setCount}){
-   
-   function decrease(){
-      setCount(c => c - 1);
-   }
+function Decrease() {
 
-   return ( 
-   <Fragment>
-      <button onClick={decrease}>Decrease</button>
-   </Fragment>
-   )
+  const setCount = useSetRecoilState(counterAtom);
+
+  function decrease() {
+    setCount(c => c - 1);
+  }
+
+  return <div>
+    <button onClick={decrease}>Decrease</button>
+  </div>
 }
 
-function Increase({setCount}){
 
-  function increase(){
+function Increase() {
+  const setCount = useSetRecoilState(counterAtom);
+
+  function increase() {
     setCount(c => c + 1);
- }
+  }
 
-
-  return (
-    <Fragment>
-      <button onClick={increase}>Increase</button>
-    </Fragment>
-  )
+  return <div>
+    <button onClick={increase}>Increase</button>
+  </div>
 }
 
 export default App
