@@ -2,7 +2,8 @@ import { Fragment, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { messagingAtom } from './atoms'
 
 function App() {
   return<Fragment>
@@ -17,7 +18,7 @@ function MainApp(){
   const networkNotificationCount = useRecoilValue(networkAtom);
   const jobsAtomCount = useRecoilValue(jobsAtom);
   const notificatonsAtomCount = useRecoilValue(notificatonsAtom);
-  const [messagingAtomCount, setMessagingAtomCount] = useRecoilState(messagingAtom);
+  const messagingAtomCount = useRecoilValue(messagingAtom);
 
   return (
     <Fragment>
@@ -28,11 +29,21 @@ function MainApp(){
         <button>Messaging {notificatonsAtomCount}</button>
         <button>Notification {messagingAtomCount}</button>
 
-        <button onClick={() => {
-          setMessagingAtomCount(messagingAtomCount+1);
-        }}>Me</button>
+        <ButtonUpdater />
+       
     </Fragment>
   )
+}
+
+function ButtonUpdater() {
+   const setMessagingAtomCount = useSetRecoilState(messagingAtom);
+   return (
+   <Fragment>
+      <button onClick={() => {
+          setMessagingAtomCount(c => c + 1);
+        }}>Me</button>
+   </Fragment>
+   )
 }
 
 export default App
