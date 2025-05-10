@@ -19,3 +19,14 @@ export const messagingAtom = atom({
     key: "messagingAtom",
     default: 0
 });
+
+export const totalNotificationSelector = selector({
+    key : "totalNotificationSelector",
+    get : ({get}) => {
+        const networkAtomCount = get(networkAtom);
+        const jobsAtomCount = get(jobsAtom);
+        const notificatonsAtomCount = get(notificatonsAtom);
+        const messagingAtomCount = get(messagingAtom);
+        return networkAtomCount + jobsAtomCount + notificatonsAtomCount + messagingAtomCount;
+    }
+})

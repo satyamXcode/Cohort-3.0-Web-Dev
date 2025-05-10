@@ -1,9 +1,9 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { messagingAtom } from './atoms'
+import { messagingAtom, totalNotificationSelector } from './atoms'
 
 function App() {
   return<Fragment>
@@ -19,6 +19,11 @@ function MainApp(){
   const jobsAtomCount = useRecoilValue(jobsAtom);
   const notificatonsAtomCount = useRecoilValue(notificatonsAtom);
   const messagingAtomCount = useRecoilValue(messagingAtom);
+  const totalNotificationCount = useRecoilValue(totalNotificationSelector);
+
+  // const totalNotificationCount = useMemo(() => {
+  //   return networkNotificationCount + jobsAtomCount + notificatonsAtomCount + messagingAtomCount;
+  // }, [networkNotificationCount, jobsAtomCount, notificatonsAtomCount, messagingAtomCount])
 
   return (
     <Fragment>
