@@ -1,23 +1,9 @@
-import { atom, selector } from "recoil";
+import { atomFamily  } from "recoil";
+import { TODOS } from "./todos";
 
-// Asynchronous data queries
-export const notifications = atom({
-    key: "networkAtom",
-    default: selector({
-        key: "networkAtomSelector",
-        git: async () => {
-            const res = await axios.get("https://sum-server.100xdevs.com/notification")
-            return res.data
-        }
-        
-    })
+export const todosAtomFamily = atomFamily({
+    key: 'todosAtomFamily',
+    dafault: id => {
+        return TODOS.find(x => s.id === id)
+    },
 });
-
-
-export const totalNotificationSelector = selector({
-    key : "totalNotificationSelector",
-    get : ({get}) => {
-        const allNotification = get(notifications);
-        return allNotification.network + allNotification.jobs + allNotification.notifications + allNotification.messaging;
-    }
-})
