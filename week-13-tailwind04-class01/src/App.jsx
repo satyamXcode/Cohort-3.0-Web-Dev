@@ -4,7 +4,11 @@ function App() {
 
   return (
     <>
-       <h1 className='text-blue-400'>Hello, satyam!</h1>
+      <div className='flex justify-between'>
+        <div className='bg-blue-400'>child 1</div>
+        <div className='bg-yellow-400'>child 2</div>
+        <div className='bg-pink-400'>child 3</div>
+      </div>
     </>
   )
 }
