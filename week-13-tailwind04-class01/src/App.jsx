@@ -4,11 +4,12 @@ function App() {
 
   return (
     <>
-      <div className='grid grid-cols-12'>
-        <div className='bg-blue-400 col-span-4'>child 1</div>
-        <div className='bg-yellow-400 col-span-6'>child 2</div>
-        <div className='bg-pink-400 col-span-2'>child 3</div>
-      </div>
+      <span className='bg-green-500 text-black-500 text-4xs rounded'>
+       Hi, there from the first div
+      </span>
+      <span className='bg-blue-500 text-black-500 text-4xs rounded'>
+       Hi, there from the first div
+      </span>
     </>
   )
 }
