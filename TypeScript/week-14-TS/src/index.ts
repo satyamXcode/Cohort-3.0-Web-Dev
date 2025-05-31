@@ -100,6 +100,7 @@
 interface People {
     name: string;
     age: number;
+    isLegal(): boolean;
 }
 
 class Manager implements People {
@@ -111,6 +112,10 @@ class Manager implements People {
         this.name = name;
         this.age = age;
         this.input = 124;
+    }
+
+    isLegal(){
+        return this.age > 18;
     }
 }
 
