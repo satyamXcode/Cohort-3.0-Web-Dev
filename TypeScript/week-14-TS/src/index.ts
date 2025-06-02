@@ -97,28 +97,79 @@
 
 //////////////////////////(: Class implements interface :)//////////////////////////////
 
-interface People {
-    name: string;
-    age: number;
-    isLegal(): boolean;
-}
+// interface People {
+//     name: string;
+//     age: number;
+//     isLegal(): boolean;
+// }
 
-class Manager implements People {
-    name: string;
-    age: number;
-    input: number;
+// class Manager implements People {
+//     name: string;
+//     age: number;
+//     input: number;
 
-    constructor(name: string, age: number) {
-        this.name = name;
-        this.age = age;
-        this.input = 124;
-    }
+//     constructor(name: string, age: number) {
+//         this.name = name;
+//         this.age = age;
+//         this.input = 124;
+//     }
 
-    isLegal(){
-        return this.age > 18;
-    }
-}
+//     isLegal(){
+//         return this.age > 18;
+//     }
+// }
 
-//class -> object create
-let user = new Manager("John", 30);
-console.log(user.name);
+// //class -> object create
+// let user = new Manager("John", 30);
+// console.log(user.name);
+
+//////////////////////////(: Type : Union & Intersection :)//////////////////////////////
+
+////////////////////////////>>Types
+
+// type Employee = {
+//     name: string;
+//     startDate: string;
+// };
+
+// type Manager = {
+//     name: string;
+//     department: string;
+// };
+
+// type TeamLead = Employee & Manager;
+
+// let e: Employee = {
+//     name: "harkirat",
+//     startDate: "01-02-2004"
+// }
+
+// let m: Manager = {
+//     name: "harkirat",
+//     department: "Civil"
+// }
+
+// let t: TeamLead = {
+//     name: "harkirat",
+//     startDate: "01-02-2004",
+//     department: "Civil"
+// }
+
+////////////////////////////>> Interface
+
+// interface Admin {
+//     name: string;
+//     permission: string;
+// }
+
+// interface User {
+//     name: string;
+//     age: number;
+// }
+
+// type UserOrAdmin = User | Admin;
+
+// function greet(user: UserOrAdmin){
+//     console.log(user.name);
+// }
+
