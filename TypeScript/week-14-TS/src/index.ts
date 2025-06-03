@@ -173,3 +173,48 @@
 //     console.log(user.name);
 // }
 
+
+///////////////////////////////////////////(: Arrays in TypeScript :)//////////////////////////////////////////////
+
+// function getMax(nums: number[]){
+//     let maxValue = -100000;
+
+//     for(let i = 0; i < nums.length; i++){
+//         if(nums[i] > maxValue){
+//             maxValue = nums[i];
+//         }
+//     }
+//     return maxValue;
+// }
+
+// let maxVal = getMax([1,2,3,4,7,5]);
+
+// console.log(maxVal);
+
+// Print list of user whos age is greater than 18.
+
+interface User {
+    firstName: string;
+    lastName: string;
+    age: number;
+}
+
+function filterUsers(users: User[]){
+    let ans = [];
+    
+    for(let i = 0; i < users.length; i++){
+        if(users[i].age > 18){
+            ans.push(users[i]);
+        }
+    }
+    return ans;
+}
+
+const filteredUsers = filterUsers([{
+    firstName: "Satyam",
+    lastName: "Jaiswal",
+    age: 24
+}])
+
+console.log(filteredUsers);
+
