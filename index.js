@@ -1,0 +1,1 @@
+console.log("Github successfully setup.");
